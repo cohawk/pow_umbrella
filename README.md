@@ -19,7 +19,7 @@ You can follow the rest of the [README](https://github.com/danschultzer/pow/blob
 ## Pow Umbrella - Example Project Walkthrough
 
 Create the umbrella project and change directory to `apps` folder:
-```bash
+```
 $ mix new pow_umbrella --umbrella
 
 $ cd pow_umbrella
@@ -27,7 +27,7 @@ $ cd apps
 ```
 
 Create the Ecto DB app:
-```bash
+```
 $ mix new pow_db
 ```
 
@@ -42,7 +42,7 @@ Add Pow and Ecto to your list of dependencies in `pow_db/mix.exs`:
 ```
 
 Create the Phoenix app (without ecto DB templates):
-```bash
+```
 $ mix phx.new pow_phx --no_ecto
 
 Fetch and install dependencies? [Yn] n
@@ -60,7 +60,7 @@ Add Pow and Phoenix_Ecto to your list of dependencies in `pow_phx/mix.exs`:
 ```
 
 Fetch and install dependencies from root of umbrella project directoy `pow_umbrella`:
-```bash
+```
 $ mix deps.get
 ```
 
@@ -125,19 +125,19 @@ Add the Application module to mix applications list in `pow_db/mix.exs`:
 ```
 
 Install the necessary Pow Ecto files from the `apps/pow_db` directory:
-```bash
+```
 $ mix pow.ecto.install
 ```
 
 This will add the following user and migration files to your `pow_db` app:
-```bash
+```
 LIB_PATH/users/user.ex
 PRIV_PATH/repo/migrations/TIMESTAMP_create_user.ex
 ```
 
 #### Now lets configure the Phoenix app.
 Install the necessary Pow Phoenix files from the `apps/pow_phx` directory:
-```bash
+```
 $ mix pow.phoenix.install
 ```
 
@@ -186,14 +186,14 @@ end
 
 #### Setup DB and Run App
 Create Ecto DB from root of umbrella project directoy `pow_umbrella`:
-```bash
+```
 $ mix ecto.create
 
 The database for PowDb.Repo has been created
 ```
 
 Run Ecto create_user migration from root of umbrella project directoy `pow_umbrella`:
-```bash
+```
 $ mix ecto.migrate
 
 [info] == Running 20190319142129 PowDb.Repo.Migrations.CreateUsers.change/0 forward
@@ -203,12 +203,12 @@ $ mix ecto.migrate
 ```
 
 Compile Phoenix app assets:
-```bash
+```
 $ cd apps/pow_phx/assets && yarn install && cd ../../../
 ```
 
 Start the umbrella app from root of umbrella project directoy `pow_umbrella`:
-```bash
+```
 $ mix phx.server
 ```
 
