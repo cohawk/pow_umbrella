@@ -19,7 +19,7 @@ You can follow the rest of the [README](https://github.com/danschultzer/pow/blob
 ## Pow Umbrella - Example Project Walkthrough
 
 Create the umbrella project and change directory to `apps` folder:
-```
+```bash
 $ mix new pow_umbrella --umbrella
 
 $ cd pow_umbrella
@@ -27,12 +27,12 @@ $ cd apps
 ```
 
 Create the Ecto DB app:
-```
+```bash
 $ mix new pow_db
 ```
 
 Add Pow and Ecto to your list of dependencies in `pow_db/mix.exs`:
-```
+```elixir
   defp deps do
     [
       {:pow, "~> 1.0.4"},
@@ -42,14 +42,14 @@ Add Pow and Ecto to your list of dependencies in `pow_db/mix.exs`:
 ```
 
 Create the Phoenix app (without ecto DB templates):
-```
+```bash
 $ mix phx.new pow_phx --no_ecto
 
 Fetch and install dependencies? [Yn] n
 ```
 
 Add Pow and Phoenix_Ecto to your list of dependencies in `pow_phx/mix.exs`:
-```
+```elixir
   defp deps do
     [
       # ... default Phoenix deps ...
@@ -60,13 +60,13 @@ Add Pow and Phoenix_Ecto to your list of dependencies in `pow_phx/mix.exs`:
 ```
 
 Fetch and install dependencies from root of umbrella project directoy `pow_umbrella`:
-```
+```bash
 $ mix deps.get
 ```
 
 #### First lest configure the Ecto DB app.
 Add Ecto Repo config to `pow_db/config/config.exs`:
-```
+```elixir
 config :pow_db,
   ecto_repos: [PowDb.Repo]
 
@@ -80,7 +80,7 @@ config :pow_db, PowDb.Repo,
 ```
 
 Create Ecto Repo module file `pow_db/lib/repo.ex`:
-```
+```elixir
 defmodule PowDb.Repo do
   use Ecto.Repo,
     otp_app: :pow_db,
@@ -89,7 +89,7 @@ end
 ```
 
 Create Application module file `pow_db/lib/application.ex` to start and supervise your Ectp Repo:
-```
+```elixir
 defmodule PowDb.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
@@ -115,7 +115,7 @@ end
 ```
 
 Add the Application module to mix applications list in `pow_db/mix.exs`:
-```
+```elixir
   def application do
     [
       extra_applications: [:logger],
@@ -125,31 +125,31 @@ Add the Application module to mix applications list in `pow_db/mix.exs`:
 ```
 
 Install the necessary Pow Ecto files from the `apps/pow_db` directory:
-```
+```bash
 $ mix pow.ecto.install
 ```
 
 This will add the following user and migration files to your `pow_db` app:
-```
+```bash
 LIB_PATH/users/user.ex
 PRIV_PATH/repo/migrations/TIMESTAMP_create_user.ex
 ```
 
 #### Now lets configure the Phoenix app.
 Install the necessary Pow Phoenix files from the `apps/pow_phx` directory:
-```
+```bash
 $ mix pow.phoenix.install
 ```
 
 Add Pow user and repo config to `pow_phx/config/config.exs`:
-```
+```elixir
 config :pow_phx, :pow,
   user: PowDb.Users.User,
   repo: PowDb.Repo
 ```
 
 Add `Pow.Plug.Session` plug to `pow_phx/lib/pow_phx_web/endpoint.ex` (Pow.Plug.Session is added after Plug.Session):
-```
+```elixir
 defmodule PowPhxWeb.Endpoint do
   use Phoenix.Endpoint, web_app: :pow_phx
 
@@ -167,7 +167,7 @@ end
 ```
 
 Update `pow_phx/lib/pow_phx_web/router.ex` with the Pow routes (Pow.Phoenix.Router is added after PowPhxWeb, :router)
-```
+```elixir
 defmodule PowPhxWeb.Router do
   use PowPhxWeb, :router
   use Pow.Phoenix.Router
@@ -186,14 +186,14 @@ end
 
 #### Setup DB and Run App
 Create Ecto DB from root of umbrella project directoy `pow_umbrella`:
-```
+```bash
 $ mix ecto.create
 
 The database for PowDb.Repo has been created
 ```
 
 Run Ecto create_user migration from root of umbrella project directoy `pow_umbrella`:
-```
+```bash
 $ mix ecto.migrate
 
 [info] == Running 20190319142129 PowDb.Repo.Migrations.CreateUsers.change/0 forward
@@ -203,12 +203,12 @@ $ mix ecto.migrate
 ```
 
 Compile Phoenix app assets:
-```
+```bash
 $ cd apps/pow_phx/assets && yarn install && cd ../../../
 ```
 
 Start the umbrella app from root of umbrella project directoy `pow_umbrella`:
-```
+```bash
 $ mix phx.server
 ```
 
