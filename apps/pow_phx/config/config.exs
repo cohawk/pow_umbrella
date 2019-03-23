@@ -9,7 +9,8 @@ use Mix.Config
 
 config :pow_phx, :pow,
   user: PowDb.Users.User,
-  repo: PowDb.Repo
+  repo: PowDb.Repo,
+  cache_store_backend: PowDb.PowRedisCache
 
 # Configures the endpoint
 config :pow_phx, PowPhxWeb.Endpoint,

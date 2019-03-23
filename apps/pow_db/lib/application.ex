@@ -11,7 +11,8 @@ defmodule PowDb.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto DB repository
-      supervisor(PowDb.Repo, [])
+      supervisor(PowDb.Repo, []),
+      {Redix, name: :redix}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
