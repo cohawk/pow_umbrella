@@ -32,7 +32,9 @@ defmodule PowDb.MixProject do
       {:pow, "~> 1.0.4"},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:redix, "~> 0.9.3"}
+      {:redix, "~> 0.9.3"},
+
+      # {:pow_phx, in_umbrella: true}
     ]
   end
 end

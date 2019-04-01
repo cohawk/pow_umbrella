@@ -45,6 +45,7 @@ defmodule PowPhx.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:pow, "~> 1.0.4"},
       {:phoenix_ecto, "~> 4.0"},  # needed for Phoenix.Forms POW changesets
+
       {:pow_db, in_umbrella: true}
     ]
   end
