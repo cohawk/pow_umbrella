@@ -31,7 +31,9 @@ defmodule PowDb.MixProject do
       # {:sibling_app_in_umbrella, in_umbrella: true}
       {:pow, "~> 1.0.4"},
       {:ecto_sql, "~> 3.0"},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+
+      {:pow_phx, in_umbrella: true}
     ]
   end
 end
