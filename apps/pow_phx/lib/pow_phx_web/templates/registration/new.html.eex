@@ -1,0 +1,15 @@
+<%= form_for @changeset, Routes.signup_path(@conn, :create), fn f -> %>
+  <%= label f, :email, "email" %>
+  <%= email_input f, :email %>
+  <%= error_tag f, :email %>
+
+  <%= label f, :password, "password" %>
+  <%= password_input f, :password %>
+  <%= error_tag f, :password %>
+
+  <%= label f, :confirm_password, "confirm_password" %>
+  <%= password_input f, :confirm_password %>
+  <%= error_tag f, :confirm_password %>
+
+  <%= submit "Register" %>
+<% end %>

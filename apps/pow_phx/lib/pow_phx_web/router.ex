@@ -1,6 +1,5 @@
 defmodule PowPhxWeb.Router do
   use PowPhxWeb, :router
-  use Pow.Phoenix.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -14,16 +13,32 @@ defmodule PowPhxWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/" do
-    pipe_through :browser
+  pipeline :protected do
+    plug Pow.Plug.RequireAuthenticated,
+      error_handler: PowPhxWeb.AuthErrorHandler
+  end
 
-    pow_routes()
+  pipeline :not_authenticated do
+    plug Pow.Plug.RequireNotAuthenticated,
+      error_handler: PowPhxWeb.AuthErrorHandler
+  end
+
+
+  scope "/", PowPhxWeb do
+    pipe_through [:browser, :not_authenticated]
+
+    get "/signup", RegistrationController, :new, as: :signup
+    post "/signup", RegistrationController, :create, as: :signup
+    get "/login", SessionController, :new, as: :login
+    post "/login", SessionController, :create, as: :login
+
+    get "/", PageController, :index
   end
 
   scope "/", PowPhxWeb do
-    pipe_through :browser
+    pipe_through [:browser, :protected]
 
-    get "/", PageController, :index
+    delete "/logout", SessionController, :delete, as: :logout
   end
 
   # Other scopes may use custom stacks.
